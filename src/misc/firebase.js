@@ -1,4 +1,7 @@
+/* eslint-disable import/no-extraneous-dependencies */
 import firebase from 'firebase/app'
+import 'firebase/auth'
+import 'firebase/database'
 
 const config = {
     apiKey: "AIzaSyB9ARWJZZW8Q2yEhMIZOJMhzcUZ13jScD0",
@@ -12,5 +15,6 @@ const config = {
 
 const app = firebase.initializeApp(config)
 
-export default app
+export const auth = app.auth()
+export const database = app.database()
 
