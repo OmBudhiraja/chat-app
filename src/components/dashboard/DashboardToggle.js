@@ -32,6 +32,11 @@ const DashboardToggle = () => {
                     <Icon icon="angle-left" size="2x" />
                 </div> */}
                 <Dashboard onSignOut={onSignOut} />
+                {/* <Drawer backdrop="true" placement="bottom" show="true" size="xs">
+                    <Drawer.Body>
+                        upload
+                    </Drawer.Body>
+                </Drawer> */}
             </Drawer>
         </>
     )

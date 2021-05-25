@@ -48,10 +48,13 @@ const ProviderBlock = () => {
         unlink('google.com');
     };
 
-    const link = async (provider) => {
+    const link = async provider => {
         try {
             await auth.currentUser.linkWithPopup(provider);
-            Alert.success(`Successfully Linked In ${provider.providerId}`, 4000);
+            Alert.success(
+                `Successfully Linked In ${provider.providerId}`,
+                4000
+            );
             updateIsConnected(provider.providerId, true);
         } catch (err) {
             Alert.error(err.message, 4000);
@@ -66,7 +69,7 @@ const ProviderBlock = () => {
     };
 
     return (
-        <div>
+        <div className="mt-1">
             {isConnected['google.com'] && (
                 <Tag color="green" closable onClose={unlinkGoogle}>
                     <Icon icon="google" /> Connected
