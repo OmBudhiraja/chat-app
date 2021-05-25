@@ -44,7 +44,7 @@ const EditableInput = (props)=>{
             value={input}
             onChange={onInputChange}
             disabled={!isEditable}
-            autocomplete="off"
+            autoComplete="off"
                 />
             
             <InputGroup.Button onClick={onEditClick}>
