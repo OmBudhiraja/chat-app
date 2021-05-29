@@ -26,12 +26,12 @@ const Dashboard = ({onSignOut}) => {
 
     return (
         <>
-            <Drawer.Header>
+            <Drawer.Header className="p-side">
                 <Drawer.Title className="text-grey">
                     Dashboard        
                 </Drawer.Title>
             </Drawer.Header>
-            <Drawer.Body>
+            <Drawer.Body className="custom-scroll p-side">
                 <h3>Hey, {profile.name}</h3>
                 <ProviderBlock />
                 <Divider />
@@ -43,7 +43,7 @@ const Dashboard = ({onSignOut}) => {
                 />
                 <AvatarUploadBtn />
             </Drawer.Body>
-            <Drawer.Footer>
+            <Drawer.Footer className="p-side">
                 <Button block color="red" onClick={onSignOut}>Sign Out</Button>
             </Drawer.Footer>
         </>

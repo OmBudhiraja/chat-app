@@ -2,6 +2,12 @@
 @import 'utility';
 @import 'utility_colors';
 
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -20,24 +26,31 @@ body,
   height: 100%;
 }
 
+body::-webkit-scrollbar{
+  width: 0px;
+}
+
 .custom-scroll {
   &::-webkit-scrollbar {
     width: 4px;
+   
   }
 
   &::-webkit-scrollbar-track {
     background: #ddd;
+    border-radius: 3rem;
   }
 
   &::-webkit-scrollbar-thumb {
     background: darken(#ddd, 20%);
+    border-radius: 1rem;
   }
 }
 
 .img-fullsize {
   * {
-    width: auto !important;
-    height: auto !important;
+    width: 100% !important;
+    height: 100% !important;
   }
 }
 
@@ -60,6 +73,7 @@ $chat-b: 65px;
 
 .chat-top {
   height: $chat-t;
+  background: #ededed;
 }
 
 .chat-bottom {
@@ -97,5 +111,16 @@ $chat-b: 65px;
     100% {
       opacity: 1;
     }
+  }
+}
+
+
+.illustration{
+  max-height: 40vh;
+  width: 75%;
+  margin-bottom: 4rem ;
+  img{
+    width:100%;
+    object-fit: contain;
   }
 }

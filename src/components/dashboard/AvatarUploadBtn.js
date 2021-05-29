@@ -1,29 +1,17 @@
 import React, { useState, useRef } from 'react';
-import AvatarEditor from 'react-avatar-editor';
-import { Alert, Button, Modal } from 'rsuite';
+import { Alert, Icon } from 'rsuite';
 import { useProfile } from '../../context/profiles.context';
 import { useModalState } from '../../misc/customHooks';
 import { database, storage } from '../../misc/firebase';
 import ProfileAvatar from '../ProfileAvatar';
+import UploadAvatarModal from '../UploadAvatarModal';
+import {getBlob, fileInputTypes, isValidFile } from '../../misc/helpers'
 
-const fileInputTypes = '.jpg jpeg .png';
-const acceptedFileTypes = ['image/png', 'image/jpeg', 'image/pjpeg'];
-const isValidFile = file => acceptedFileTypes.includes(file.type);
-const getBlob = canvas =>
-    new Promise((resolve, reject) => {
-        canvas.toBlob(blob => {
-            if (blob) {
-                resolve(blob);
-            } else {
-                reject(new Error('File process error.'));
-            }
-        });
-    });
 
 const AvatarUploadBtn = () => {
     const { isOpen, open, close } = useModalState();
     const [img, setImg] = useState(null);
-    const [isLoading, setIsLoading] = useState(false)
+    const [isLoading, setIsLoading] = useState(false);
     const avatarEditorRef = useRef();
     const { profile } = useProfile();
 
@@ -44,39 +32,42 @@ const AvatarUploadBtn = () => {
 
     const onUploadClick = async () => {
         const canvas = avatarEditorRef.current.getImageScaledToCanvas();
-        setIsLoading(true)
+        setIsLoading(true);
         try {
             const blob = await getBlob(canvas);
             const avatarFileRef = storage
                 .ref(`/profile/${profile.uid}`)
                 .child('avatar');
             const uploadAvatarResults = await avatarFileRef.put(blob, {
-                cacheControl: `public, max-age=${3600*24*3}`
+                cacheControl: `public, max-age=${3600 * 24 * 3}`,
             });
-            const downloadUrl = await uploadAvatarResults.ref.getDownloadURL()
-             
-            await database.ref(`/profiles/${profile.uid}`).update({
-                avatar: downloadUrl
-            })
-            Alert.success('Avatar has been updated', 4000)
-            setIsLoading(false)
-            close()
+            const downloadUrl = await uploadAvatarResults.ref.getDownloadURL();
 
+            await database.ref(`/profiles/${profile.uid}`).update({
+                avatar: downloadUrl,
+            });
+            Alert.success('Avatar has been updated', 4000);
+            setIsLoading(false);
+            close();
         } catch (err) {
             Alert.error(err.message, 4000);
-            setIsLoading(false)
+            setIsLoading(false);
         }
     };
 
     return (
         <div className="mt-3 text-center">
-            <ProfileAvatar src={profile.avatar} name={profile.name} className="width-300 height-300 font-huge img-fullsize" />
-            <div>
+            <div className="position-relative width-content-fit mx-auto">
+                <ProfileAvatar
+                    src={profile.avatar}
+                    name={profile.name}
+                    className=" mt-3 width-300 height-300 font-huge img-fullsize"
+                />
                 <label
                     htmlFor="avatar-upload"
-                    className="d-block cursor-pointer padded"
+                    className="cursor-pointer bg-grey d-flex align-items-center justify-content-center br-circle square-sm position-absolute"
                 >
-                    Select new Avatar
+                    <Icon icon="camera" style={{ color: '#fff' }} size="2x" />
                     <input
                         type="file"
                         id="avatar-upload"
@@ -85,36 +76,15 @@ const AvatarUploadBtn = () => {
                         onChange={onFileInputChange}
                     />
                 </label>
-
-                <Modal backdrop="static" show={isOpen} onHide={close}>
-                    <Modal.Header>
-                        <Modal.Title>Adjust and Upload the avatar</Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body className="mt-3">
-                        <div className="d-flex justify-content-center align-items-center h-100">
-                            {img && (
-                                <AvatarEditor
-                                    ref={avatarEditorRef}
-                                    image={img}
-                                    width={300}
-                                    height={300}
-                                    border={10}
-                                    borderRadius={250}
-                                    rotate={0}
-                                />
-                            )}
-                        </div>
-                    </Modal.Body>
-                    <Modal.Footer className="mt-3">
-                        <Button appearance="primary" onClick={onUploadClick} disabled={isLoading} >
-                            Upload
-                        </Button>
-                        <Button appearance="subtle" onClick={close} disabled={isLoading} >
-                            Cancel
-                        </Button>
-                    </Modal.Footer>
-                </Modal>
             </div>
+            <UploadAvatarModal
+            isOpen={isOpen}
+            close={close}
+            isLoading={isLoading}
+            onUploadClick={onUploadClick}
+            avatarEditorRef={avatarEditorRef}
+            img={img}
+            />
         </div>
     );
 };
