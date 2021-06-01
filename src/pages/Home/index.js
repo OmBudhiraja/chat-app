@@ -24,7 +24,7 @@ const Home = () => {
                     )}
                     <Switch>
                         <Route exact path="/chat/:chatId">
-                            <Col xs={24} md={16} className="h-100">
+                            <Col xs={24} md={16} className="h-100 ms-0">
                                 <Chat />
                             </Col>
                         </Route>
@@ -33,7 +33,10 @@ const Home = () => {
                                 <Col xs={24} md={16} className="h-100">
                                     <div className="flex-column h-100 align-items-center justify-content-center fle">
                                         <div className="illustration">
-                                            <img src={WelcomeVector} alt="illustration" />
+                                            <img
+                                                src={WelcomeVector}
+                                                alt="illustration"
+                                            />
                                         </div>
                                         <h3 className="text-center">
                                             Please Select any Chat!

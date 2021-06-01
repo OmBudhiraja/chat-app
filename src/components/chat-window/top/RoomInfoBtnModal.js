@@ -1,5 +1,5 @@
-import React from 'react';
-import { Avatar, Button, Divider, Modal } from 'rsuite';
+import React, { memo } from 'react';
+import { Avatar, Button, Divider, Modal, Whisper, Tooltip, Icon } from 'rsuite';
 import { useCurrentRoom } from '../../../context/currentRoom.context';
 import { useModalState } from '../../../misc/customHooks';
 import { formatDate } from '../../../misc/helpers';
@@ -11,14 +11,31 @@ const RoomInfoBtnModal = () => {
     const roomAvatar = useCurrentRoom(v => v.roomAvatar);
     const createdAt = useCurrentRoom(v => v.createdAt);
     const { isOpen, open, close } = useModalState();
-    const formatedDate = formatDate(createdAt)
+    const formatedDate = formatDate(createdAt);
     return (
         <div>
             <Button onClick={open}>Room Info</Button>
 
             <Modal show={isOpen} onHide={close}>
                 <Modal.Header>
-                    <Modal.Title>Group Info {name}</Modal.Title>
+                    <Modal.Title className="d-inline">
+                        Group Info
+                    </Modal.Title>
+                    <span>
+                    <Whisper
+                            trigger="hover"
+                            placement="autoVerticalStart"
+                            speaker={
+                                <Tooltip>
+                                    {' '}
+                                    Only Admin can edit room details from the
+                                    Admin panel.
+                                </Tooltip>
+                            }
+                        >
+                            <Icon className="ml-2 text-grey" size="lg" icon="lightbulb-o" />
+                        </Whisper>
+                    </span>
                 </Modal.Header>
                 <Modal.Body className="custom-scroll p-side">
                     <div className="w-100 text-center">
@@ -44,4 +61,4 @@ const RoomInfoBtnModal = () => {
     );
 };
 
-export default RoomInfoBtnModal;
+export default memo(RoomInfoBtnModal);

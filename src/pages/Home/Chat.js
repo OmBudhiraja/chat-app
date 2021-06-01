@@ -21,10 +21,10 @@ const Chat = () => {
         return <h6>Chat Id not found</h6>
     }
 
-    const {name, description, roomAvatar, createdAt} = currentRoom
+    const {name, description, roomAvatar, createdAt, id} = currentRoom
 
     const currentRoomData = {
-        name, description, roomAvatar, createdAt
+        name, description, roomAvatar, createdAt, id
     }
    
 

@@ -7,6 +7,7 @@ import EditableInput from '../EditableInput'
 import { database } from '../../misc/firebase'
 import ProviderBlock from './ProviderBlock'
 import AvatarUploadBtn from './AvatarUploadBtn'
+import { getUserUpdates } from '../../misc/helpers'
 
 
 
@@ -15,9 +16,9 @@ const Dashboard = ({onSignOut}) => {
 
     const onSave = async (newData)=>{
       try{
-        await database.ref(`/profiles/${profile.uid}`).update({
-            name: newData
-        })
+        const updates = await getUserUpdates(profile.uid, "name", newData, database)
+        await database.ref().update(updates)
+
         Alert.success('Nickname has been Updated !', 4000)
       }catch(err){
           Alert.error(err.message, 4000)

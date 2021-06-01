@@ -5,7 +5,7 @@ import { useModalState } from '../../misc/customHooks';
 import { database, storage } from '../../misc/firebase';
 import ProfileAvatar from '../ProfileAvatar';
 import UploadAvatarModal from '../UploadAvatarModal';
-import {getBlob, fileInputTypes, isValidFile } from '../../misc/helpers'
+import {getBlob, fileInputTypes, isValidFile, getUserUpdates } from '../../misc/helpers'
 
 
 const AvatarUploadBtn = () => {
@@ -43,9 +43,12 @@ const AvatarUploadBtn = () => {
             });
             const downloadUrl = await uploadAvatarResults.ref.getDownloadURL();
 
-            await database.ref(`/profiles/${profile.uid}`).update({
-                avatar: downloadUrl,
-            });
+            const updates = await getUserUpdates(profile.uid, "avatar", downloadUrl, database)
+            await database.ref().update(updates)
+
+            // await database.ref(`/profiles/${profile.uid}`).update({
+            //     avatar: downloadUrl,
+            // });
             Alert.success('Avatar has been updated', 4000);
             setIsLoading(false);
             close();
@@ -61,6 +64,7 @@ const AvatarUploadBtn = () => {
                 <ProfileAvatar
                     src={profile.avatar}
                     name={profile.name}
+                    style={{ background: '#9A8D8D' }}
                     className=" mt-3 width-300 height-300 font-huge img-fullsize"
                 />
                 <label

@@ -46,9 +46,9 @@ textarea.rs-input {
 .rs-drawer-bottom.rs-drawer-xs{
   height: 150px;
 }
-.rs-avatar-md{
-  overflow: visible !important;
-}
+// .rs-avatar-md{
+//   overflow: visible !important;
+// }
 
 .rs-avatar-md{
   width: 50px !important;
@@ -70,3 +70,14 @@ textarea.rs-input {
   background: #e5e5ea !important;
 }
 
+.rs-help-block-tooltip {
+  margin-left: 10px;
+  margin-top: 0px !important;
+}
+
+@media screen and (max-width: 800px){
+  .rs-col-xs-24{
+    padding-right: 0px !important;
+    padding-left: 0px !important;
+  }
+}

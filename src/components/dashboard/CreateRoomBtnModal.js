@@ -18,7 +18,7 @@ import { database } from '../../misc/firebase';
 const { StringType } = Schema.Types;
 
 const model = Schema.Model({
-    name: StringType().isRequired('ChatRoom Name is Required'),
+    name: StringType().isRequired('ChatRoom Name is Required').maxLength(15, 'Name must not exceed 20 letters'),
     description: StringType().isRequired('Room Description is Required'),
 });
 

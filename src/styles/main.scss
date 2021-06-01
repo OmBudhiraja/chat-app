@@ -15,8 +15,9 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-
   background-color: #fcfcfc;
+  max-height: 100vh;
+  overflow-y: hidden;
 }
 
 html,
@@ -69,7 +70,7 @@ body::-webkit-scrollbar{
 }
 
 $chat-t: 75px;
-$chat-b: 65px;
+$chat-b: 70px;
 
 .chat-top {
   height: $chat-t;
@@ -78,24 +79,27 @@ $chat-b: 65px;
 
 .chat-bottom {
   height: $chat-b;
+  background: #ededed;
 }
 
 .chat-middle {
   height: calc(100% - #{$chat-t} - #{$chat-b});
+  background-blend-mode: soft-light; 
+  background: #eeeae6  url(./../images/chat-window-bg.png);  
 }
 
 .msg-list {
-  padding: 0;
+  width: 100%;
+  padding: 0 5%;
   margin: 0;
   height: 100%;
   overflow-y: auto;
-  list-style-type: none;
-  li {
-    &:last-child {
-      margin-bottom: 0 !important;
-      padding-bottom: 0 !important;
-    }
-  }
+  
+}
+
+.position-down{
+  position: relative;
+  top: 7px
 }
 
 .animate-blink {
@@ -113,7 +117,6 @@ $chat-b: 65px;
     }
   }
 }
-
 
 .illustration{
   max-height: 40vh;
