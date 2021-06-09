@@ -8,6 +8,7 @@ const EditableInput = (props)=>{
         label=null,
         placeholder="Write your Value",
         emptyMsg="Input field cannot be empty",
+        wrapperClass="",
         ...inputProps
         } = props
 
@@ -35,7 +36,7 @@ const EditableInput = (props)=>{
         setIsEditable(false)
     }
 
-    return <div>
+    return <div className={wrapperClass}>
         {label}
         <InputGroup>
             <Input

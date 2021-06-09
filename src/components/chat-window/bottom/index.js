@@ -6,6 +6,8 @@ import firebase from 'firebase/app';
 import { useParams } from 'react-router';
 import { useProfile } from '../../../context/profiles.context';
 import { database } from '../../../misc/firebase';
+import AttachmentBtnModal from './AttachmentBtnModal';
+import AudioMsgBtn from './AudioMsgBtn';
 
 const assembleMessage = (profile, roomId) => ({
     roomId,
@@ -16,6 +18,7 @@ const assembleMessage = (profile, roomId) => ({
         ...(profile.avatar ? { avatar: profile.avatar } : {}),
     },
     createdAt: firebase.database.ServerValue.TIMESTAMP,
+    likeCount: 0,
 });
 
 const Bottom = () => {
@@ -34,7 +37,7 @@ const Bottom = () => {
 
         const updates = {};
 
-        const messageId = database.ref('messages').push().key;
+        const messageId = database.ref('/messages').push().key;
 
         updates[`/messages/${messageId}`] = msgData;
         updates[`/rooms/${chatId}/lastMessage`] = {
@@ -59,9 +62,35 @@ const Bottom = () => {
         }
     };
 
+    const afterUpload = useCallback(async files => {
+
+        const updates = {};
+        files.forEach(file => {
+            const msgData = assembleMessage(profile, chatId);
+            msgData.file = file;
+            const messageId = database.ref('/messages').push().key;
+            updates[`/messages/${messageId}`] = msgData;
+        });
+
+        const lastMsgId = Object.keys(updates).pop();
+        updates[`/rooms/${chatId}/lastMessage`] = {
+            ...updates[lastMsgId],
+            messageId: lastMsgId,
+        };
+        try {
+            await database.ref().update(updates);
+            
+        } catch (err) {
+           
+            Alert.error(err.message, 4000);
+        }
+    }, [chatId, profile]);
+
     return (
         <div>
             <InputGroup size="lg">
+                <AudioMsgBtn afterUpload={afterUpload} />
+                <AttachmentBtnModal afterUpload={afterUpload} />
                 <Input
                     placeholder="Write a new message here..."
                     value={input}

@@ -25,6 +25,7 @@ body,
 #root,
 #root > div {
   height: 100%;
+  scroll-behavior: smooth;
 }
 
 body::-webkit-scrollbar{
@@ -67,6 +68,10 @@ body::-webkit-scrollbar{
   display: flex;
   flex-direction: column;
   justify-content: center;
+  padding: 0 2rem;
+  @media screen and (max-width:800px){
+    padding: 0 1.1rem;
+  }
 }
 
 $chat-t: 75px;
@@ -94,8 +99,12 @@ $chat-b: 70px;
   margin: 0;
   height: 100%;
   overflow-y: auto;
-  
+  @media screen and (max-width: 800px){
+    padding: 0 1%;
+  }
 }
+
+
 
 .position-down{
   position: relative;

@@ -46,9 +46,6 @@ const AvatarUploadBtn = () => {
             const updates = await getUserUpdates(profile.uid, "avatar", downloadUrl, database)
             await database.ref().update(updates)
 
-            // await database.ref(`/profiles/${profile.uid}`).update({
-            //     avatar: downloadUrl,
-            // });
             Alert.success('Avatar has been updated', 4000);
             setIsLoading(false);
             close();

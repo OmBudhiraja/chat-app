@@ -17,7 +17,7 @@
   padding-bottom: 5px;
   margin-top: 10px;
   margin-bottom: 10px;
-  min-height: 250px;
+  min-height: 150px;
 }
 
 textarea.rs-input {
@@ -75,9 +75,23 @@ textarea.rs-input {
   margin-top: 0px !important;
 }
 
-@media screen and (max-width: 800px){
-  .rs-col-xs-24{
-    padding-right: 0px !important;
-    padding-left: 0px !important;
-  }
+.rs-badge-independent.rs-badge-dot, .rs-badge-wrapper .rs-badge-content:empty {
+  width: 10px !important;
+  height: 10px !important;
+  border-radius: 50% !important;
+}
+
+.rs-badge-content{
+  font-size: 9px !important;
+}
+
+
+.rs-col-xs-24{
+  padding-right: 0px !important;
+  padding-left: 0px !important;
+}
+
+
+.rs-dropdown-open.rs-dropdown-placement-bottom-start > .rs-dropdown-menu, .rs-dropdown-open.rs-dropdown-placement-bottom-end > .rs-dropdown-menu {
+  top: 130%;
 }

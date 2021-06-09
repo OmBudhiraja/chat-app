@@ -6,6 +6,9 @@ export const getInitials = name => {
     return splitNames[0][0];
 };
 
+export const transformToArray = (snapVal)=> snapVal ? Object.keys(snapVal) : []
+
+
 export const transformToArrayWithId = snapVal =>
     snapVal
         ? Object.keys(snapVal).map(roomId => ({
@@ -75,3 +78,16 @@ export const getUserUpdates = async (userId, keyToUpdate, value, db) => {
     return updates
 
 };
+
+
+export const groupBy = (array, groupingKeyFn)=> array.reduce((result, item)=>{
+    const groupingKey = groupingKeyFn(item)
+    if(!result[groupingKey]){
+        result[groupingKey] = []
+    }
+    
+    result[groupingKey].push(item) 
+
+    return result
+
+}, {})

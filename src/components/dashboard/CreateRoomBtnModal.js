@@ -13,7 +13,7 @@ import {
 } from 'rsuite';
 import Firebase from 'firebase/app';
 import { useModalState } from '../../misc/customHooks';
-import { database } from '../../misc/firebase';
+import { database, auth } from '../../misc/firebase';
 
 const { StringType } = Schema.Types;
 
@@ -46,6 +46,9 @@ const CreateRoomBtnModal = () => {
         const newRoomData = {
             ...formValue,
             createdAt: Firebase.database.ServerValue.TIMESTAMP,
+            admins: {
+                [auth.currentUser.uid]: true
+            }
         };
         try {
             await database.ref('rooms').push(newRoomData);
@@ -60,9 +63,9 @@ const CreateRoomBtnModal = () => {
     };
 
     return (
-        <div className="mt-1">
+        <div className="mt-1 ml-3 mr-3">
             <Button block color="green" onClick={open}>
-                <Icon icon="creative" /> Create a New Chat Room
+                <Icon icon="plus" /> Create a New Chat Room
             </Button>
             <Modal show={isOpen} onHide={close}>
                 <Modal.Header>

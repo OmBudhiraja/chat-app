@@ -22,8 +22,8 @@ const DashboardToggle = () => {
     }, [close]);
 
     return (
-        <>
-            <Button block color="blue" onClick={open}>
+        <div className="mr-3 ml-3 ">
+            <Button block color="blue" onClick={open} >
                 <Icon icon="dashboard" /> Dashboard
             </Button>
             <Drawer
@@ -33,13 +33,8 @@ const DashboardToggle = () => {
                 placement="left"
             >
                 <Dashboard onSignOut={onSignOut} />
-                {/* <Drawer backdrop="true" placement="bottom" show="true" size="xs">
-                    <Drawer.Body>
-                        upload
-                    </Drawer.Body>
-                </Drawer> */}
             </Drawer>
-        </>
+        </div>
     );
 };
 

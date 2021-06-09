@@ -1,6 +1,6 @@
 import React from 'react';
 import TimeAgo from 'timeago-react';
-import { Avatar, Divider } from 'rsuite';
+import { Avatar, Divider, Icon } from 'rsuite';
 import RoomDefaultImg from '../../images/room-default-img.svg';
 
 const RoomItem = ({ room }) => {
@@ -10,7 +10,7 @@ const RoomItem = ({ room }) => {
             <div className="mr-3">
                 <Avatar size="md" circle src={roomAvatar || RoomDefaultImg} />
             </div>
-            <div className="w-100" style={{overflow: 'hidden'}}>
+            <div className="w-100" style={{ overflow: 'hidden' }}>
                 <div className="d-flex justify-content-between align-items-center ">
                     <h5 className="text-disappear font-bolder font-large">
                         {name}
@@ -33,10 +33,36 @@ const RoomItem = ({ room }) => {
                             <span className="italic">
                                 {lastMessage.author.name}:
                             </span>
-                            <span className="text-disappear">
-                                {' '}
-                                {lastMessage.text}
-                            </span>
+                            {lastMessage.text && (
+                                <span className="text-disappear">
+                                    &nbsp;{lastMessage.text}
+                                </span>
+                            )}
+
+                            {lastMessage.file && (
+                                <>
+                                    {lastMessage.file.contentType.includes(
+                                        'image'
+                                    ) ||
+                                    lastMessage.file.contentType.includes(
+                                        'video'
+                                    ) ||
+                                    lastMessage.file.contentType.includes(
+                                        'audio'
+                                    ) ? (
+                                        <span className="text-disappear">
+                                            &nbsp;
+                                            {lastMessage.file.contentType.includes('image') && <><Icon icon="image" /> Photo</> }
+                                            {lastMessage.file.contentType.includes('video') && <><Icon icon="video-camera" /> Video</> }
+                                            {lastMessage.file.contentType.includes('audio') && <><Icon icon="microphone" /> Audio</> }
+                                        </span>
+                                    ) : (
+                                        <span className="text-disappear">
+                                            &nbsp;{lastMessage.file.name}
+                                        </span>
+                                    )}
+                                </>
+                            )}
                         </div>
                     ) : (
                         <span>No messages yet...</span>
