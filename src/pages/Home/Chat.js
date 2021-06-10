@@ -23,13 +23,15 @@ const Chat = () => {
         return <h6>Chat Id not found</h6>
     }
 
-    const {name, description, roomAvatar, createdAt, id} = currentRoom
+    const {name, description, roomAvatar, createdAt, id, } = currentRoom
 
     const admins = transformToArray(currentRoom.admins)
+    const fcmUsers = transformToArray(currentRoom.fcmUsers)
     const isAdmin = admins.includes(auth.currentUser.uid)
+    const isRecievingFcm = fcmUsers.includes(auth.currentUser.uid)
 
     const currentRoomData = {
-        name, description, roomAvatar, createdAt, id, admins, isAdmin
+        name, description, roomAvatar, createdAt, id, admins, isAdmin, isRecievingFcm
     }
    
 

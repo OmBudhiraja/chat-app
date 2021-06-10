@@ -6,6 +6,8 @@ import RoomDefaultImg from '../../../images/room-default-img.svg';
 import { useMediaQuery } from '../../../misc/customHooks';
 import RoomInfoBtnModal from './RoomInfoBtnModal';
 import EditRoomBtnDrawer from './EditRoomBtnDrawer';
+import SendFcmBtnModal from './SendFcmBtnModal';
+import AskFcmBtnModal from './AskFcmBtnModal';
 
 
 const Top = () => {
@@ -34,12 +36,23 @@ const Top = () => {
                 className="mr-1"
             />
                 <div className="d-flex justify-content-between align-items-center" style={{flex: 1}}>
-                    <h4 className="d-flex justify-content-between align-items-center text-disappear">
-                        <span className="text-disappear">{name}</span>
-                    </h4>
-                    <div className="d-flex align-items-center" >
-                    <ButtonToolbar className="ws-nowrap">
-                        {isAdmin && <EditRoomBtnDrawer />}
+                    <div >
+                        <h4 className="d-flex justify-content-between align-items-center text-disappear">
+                            <span className="text-disappear">{name}</span>
+                        </h4>
+                        {isAdmin && (
+                            <SendFcmBtnModal />
+                        )}
+                    </div>
+                    <div className="flex-column align-items-center" >
+                    <ButtonToolbar className="ws-nowrap d-flex" style={{marginBottom: '5px'}}>
+                        <AskFcmBtnModal />
+                        {isAdmin && (
+                            <>
+                                <EditRoomBtnDrawer />
+                                
+                            </>
+                        )}
                     </ButtonToolbar>
                     <RoomInfoBtnModal />
                     </div>

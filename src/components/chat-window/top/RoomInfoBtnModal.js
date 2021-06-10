@@ -19,7 +19,7 @@ const RoomInfoBtnModal = () => {
     const formatedDate = formatDate(createdAt);
     return (
         <>
-            <Button className="text-center" onClick={open}>Room Info</Button>
+            <div className="text-center cursor-pointer" style={{color: 'blue', textDecoration: 'underline'}} onClick={open}>Room Information</div>
 
             <Modal show={isOpen} onHide={close}>
                 <Modal.Header>

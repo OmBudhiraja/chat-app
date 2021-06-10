@@ -85,7 +85,7 @@ const EditRoomBtnDrawer = () => {
 
     return (
         <div>
-                <Button className="br-circle mr-1" appearance="primary" onClick={open}>
+                <Button className="br-circle mr-1" size="sm" appearance="primary" color="green" onClick={open}>
                     A
                 </Button>
             <Drawer show={isOpen} onHide={close} placement="right">
